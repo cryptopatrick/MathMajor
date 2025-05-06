@@ -1,0 +1,76 @@
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+#%% U1
+from sympy import isprime
+for i in range(2,99):
+  if isprime(i) and isprime(i+2):
+    print ([i, i+2])
+
+#%% U2
+def kryptera(wrd,n):
+    ordut=""
+    if n<=0:
+        return wrd
+    alfabete="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    for b in wrd:
+        pos=ord(b)-ord('A')+n
+        while pos>=len(alfabete):
+            pos=pos-len(alfabete)
+        ordut=ordut+alfabete[pos]
+    return ordut
+        
+        
+#%% U3
+def toplitz(M):
+    (m,n)=np.shape(M)
+    for i in range(1,m):
+        for j in range(1,n):
+            if M[i,j]!=M[i-1,j-1]:
+                return False
+    return True
+
+
+#%% U4
+
+t = np.linspace(0,2*np.pi,30);
+ax = plt.axes(projection="3d")
+ax.plot3D(np.cos(t),np.sin(t),np.ones(np.shape(t)),'g')
+ax.plot3D(np.cos(t),np.sin(t),np.zeros(np.shape(t)),'g')
+# den vänstra figuren
+for i in range(len(t)):
+  ax.plot3D([np.cos(t[i]), np.cos(t[i])],[np.sin(t[i]) ,np.sin(t[i])],[0 ,1])
+ax.axis("off")
+
+# den högra figuren
+for i in range(len(t)):
+  ax.plot3D([np.cos(t[i]), np.cos(t[i]+np.pi)],[np.sin(t[i]) ,np.sin(t[i]+np.pi)],[0, 1],'black')
+ax.axis("off")
+
+#%% U5
+def hittakomma():
+  with open('dig.txt','r') as fid:
+      txt=fid.readlines()
+  i=1; radifil=[]
+  for rad in txt:
+      if rad.count(',') !=1:
+         radifil=radifil+[i]
+      i=i+1
+  return radifil
+
+#%%
+def sokvag(nodes,leaf):
+  if leaf < 1 or leaf >= len(nodes) or (leaf in nodes[1:]):
+    return []
+
+  path = [leaf]
+  p = leaf
+
+  while p != 1:
+    p = nodes[p]
+    path = path+[p]
+
+  return path[-1:0:-1]
+  
+  
